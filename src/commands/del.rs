@@ -2,7 +2,7 @@ use serde::Serialize;
 
 use crate::{cmd, Command, Result};
 
-cmd! {DelCommand, del, key}
+cmd! {DEL, usize; key}
 
 impl DelCommand {
     pub fn add_key<S: Serialize>(&mut self, key: S) -> Result<&mut Self> {

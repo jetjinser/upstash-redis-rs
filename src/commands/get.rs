@@ -1,3 +1,3 @@
 use crate::cmd;
 
-cmd! {GetCommand, get, key}
+cmd! {GET, Option<String>; key}

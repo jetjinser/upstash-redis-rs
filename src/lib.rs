@@ -1,3 +1,5 @@
+#![feature(macro_metavar_expr)]
+
 use reqwest::{header, Client, Url};
 
 pub mod commands;

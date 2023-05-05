@@ -1,6 +1,6 @@
 use async_trait::async_trait;
 use reqwest::{Client, Url};
-use serde::Serialize;
+use serde::{de::DeserializeOwned, Serialize};
 use serde_json::{json, Value};
 
 use crate::model::ReResponse;
@@ -9,10 +9,15 @@ use super::Result;
 
 pub mod del;
 pub mod get;
+pub mod hget;
+pub mod hgetall;
+pub mod hset;
 pub mod set;
 
 #[async_trait]
 pub trait Command {
+    type Output: DeserializeOwned;
+
     fn as_cmd(&self) -> &ReCmd;
     fn client(&self) -> &Client;
     fn url(&self) -> &Url;
@@ -22,7 +27,7 @@ pub trait Command {
         self.set_options(key)?.set_options(value)
     }
 
-    async fn send(&self) -> Result<ReResponse> {
+    async fn send(&self) -> Result<ReResponse<Self::Output>> {
         Ok(self
             .client()
             .post(self.url().as_ref())
@@ -67,53 +72,67 @@ impl ReCmd {
 
 #[macro_export]
 macro_rules! cmd {
-    ($s:tt,$c:ident,$($i:ident),*) => {
-         pub struct $s {
-            pub(crate) client: reqwest::Client,
-            pub(crate) url: reqwest::Url,
-            pub(crate) json: $crate::commands::ReCmd,
-        }
-
-        impl $crate::commands::Command for $s {
-            fn as_cmd(&self) -> &$crate::commands::ReCmd {
-                &self.json
+    ($c:ident,$ty:ty;$($i:ident),*) => {
+        paste::paste! {
+            pub struct [<$c:camel Command>] {
+                pub(crate) client: reqwest::Client,
+                pub(crate) url: reqwest::Url,
+                pub(crate) json: $crate::commands::ReCmd,
             }
 
-            fn set_options<S: serde::Serialize>(&mut self, opt: S) -> $crate::Result<&mut Self> {
-                self.json.add_arg(opt)?;
-                Ok(self)
+            impl $crate::commands::Command for [<$c:camel Command>] {
+                type Output = $ty;
+
+                fn as_cmd(&self) -> &$crate::commands::ReCmd {
+                    &self.json
+                }
+
+                fn set_options<S: serde::Serialize>(&mut self, opt: S) -> $crate::Result<&mut Self> {
+                    self.json.add_arg(opt)?;
+                    Ok(self)
+                }
+
+                fn client(&self) -> &reqwest::Client {
+                    &self.client
+                }
+
+                fn url(&self) -> &reqwest::Url {
+                    &self.url
+                }
             }
 
-            fn client(&self) -> &reqwest::Client {
-                &self.client
+            impl $crate::Redis {
+                pub fn [<$c:lower>]<$([<$i:upper>]),*>(&self, $($i: [<$i:upper>]),*) -> $crate::Result<[<$c:camel Command>]>
+                where
+                    $(
+                    [<$i:upper>]: serde::Serialize,
+                    )*
+                {
+                    [<$c:camel Command>]::new(self.client.clone(), self.url.clone(), $($i,)*)
+                }
             }
 
-            fn url(&self) -> &reqwest::Url {
-                &self.url
-            }
-        }
+            impl [<$c:camel Command>] {
+                pub fn new<$([<$i:upper>]),*>(
+                    client: reqwest::Client,
+                    url: reqwest::Url,
+                    $(
+                    $i: [<$i:upper>],
+                    )*
+                ) -> $crate::Result<Self>
+                where
+                    $(
+                    [<$i:upper>]: serde::Serialize,
+                    )*
+                {
+                    let mut json = $crate::commands::ReCmd::new(stringify!($c));
 
-        impl $crate::Redis {
-            pub fn $c<S: serde::Serialize>(&self, $($i: S),*) -> $crate::Result<$s> {
-                $s::new(self.client.clone(), self.url.clone(), $($i,)*)
-            }
-        }
+                    $(
+                    json.add_arg($i)?;
+                    )*
 
-        impl $s {
-            pub fn new<S: serde::Serialize>(
-                client: reqwest::Client,
-                url: reqwest::Url,
-                $(
-                $i: S,
-                )*
-            ) -> $crate::Result<Self> {
-                let mut json = $crate::commands::ReCmd::new(stringify!($c));
-
-                $(
-                json.add_arg($i)?;
-                )*
-
-                Ok(Self { client, url, json })
+                    Ok(Self { client, url, json })
+                }
             }
         }
     };

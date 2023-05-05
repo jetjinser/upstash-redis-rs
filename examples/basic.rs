@@ -7,13 +7,9 @@ async fn main() -> Result<(), anyhow::Error> {
 
     let redis = Redis::new(url, token).unwrap();
 
-    // let sv = redis.set("author", "kafka")?.get()?.send().await?;
-    let gv = redis.get("author")?.send().await?;
-    // let dv = redis.del("author")?.send().await?;
+    let v = redis.hgetall("author")?.send().await?;
 
-    // println!("{:#?}", sv);
-    println!("{:#?}", gv);
-    // println!("{:#?}", dv);
+    println!("{:#?}", v);
 
     Ok(())
 }

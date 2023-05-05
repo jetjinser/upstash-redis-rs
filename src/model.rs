@@ -2,15 +2,7 @@ use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 #[serde(untagged)]
-pub enum ReResponse {
-    Success { result: ReSuccess },
+pub enum ReResponse<T> {
+    Success { result: T },
     Error { error: String },
-}
-
-#[derive(Deserialize, Debug)]
-#[serde(untagged)]
-pub enum ReSuccess {
-    Del(usize),
-    Get(Option<String>),
-    Set(Option<String>),
 }

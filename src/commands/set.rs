@@ -4,7 +4,7 @@ use crate::cmd;
 
 use super::{Command, Result};
 
-cmd! { SetCommand, set, key, value}
+cmd! {SET, Option<String>; key, value}
 
 impl SetCommand {
     pub fn constraint(&mut self, cons: Constraint) -> Result<&mut Self> {
