@@ -1,5 +1,5 @@
 use serde_json::Value;
-use upstash_redis_rs::{commands::set::Expire, Command, Redis};
+use upstash_redis_rs::{Command, Redis};
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
@@ -8,16 +8,13 @@ async fn main() -> Result<(), anyhow::Error> {
 
     let redis = Redis::new(url, token).unwrap();
 
-    let sv: Value = redis
-        .set("author", "kafka")?
-        .get()?
-        .expire(Expire::EX(30))?
-        .send()
-        .await?;
-    // let gv: Value = redis.get("xx")?.send().await?;
+    // let sv: Value = redis.set("author", "kafka")?.get()?.send().await?;
+    // let gv: Value = redis.get("author")?.send().await?;
+    let dv: Value = redis.del("author")?.send().await?;
 
-    println!("set: {}", sv);
+    // println!("set: {}", sv);
     // println!("get: {}", gv);
+    println!("get: {}", dv);
 
     Ok(())
 }

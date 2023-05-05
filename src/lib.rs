@@ -1,4 +1,3 @@
-use commands::{get::GetCommand, set::SetCommand};
 use reqwest::{header, Client, Url};
 
 pub mod commands;
@@ -6,7 +5,6 @@ mod error;
 
 pub use commands::Command;
 pub use error::Result;
-use serde::Serialize;
 
 pub struct Redis {
     client: Client,
@@ -31,13 +29,5 @@ impl Redis {
         let url = Url::parse(url.as_ref())?;
 
         Ok(Self { client, url })
-    }
-
-    pub fn get<S: Serialize>(&self, key: S) -> Result<GetCommand> {
-        GetCommand::new(self.client.clone(), self.url.clone(), key)
-    }
-
-    pub fn set<S: Serialize>(&self, key: S, value: S) -> Result<SetCommand> {
-        SetCommand::new(self.client.clone(), self.url.clone(), key, value)
     }
 }
