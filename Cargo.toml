@@ -7,6 +7,10 @@ readme = "README.md"
 homepage = "https://github.com/jetjinser/upstash-redis-rs"
 repository = "https://github.com/jetjinser/upstash-redis-rs.git"
 description = "A upstash redis API client."
+license = "Apache-2.0/MIT"
+documentation = "https://docs.rs/upstash-redis-rs"
+categories = ["web-programming::http-client"]
+keywords = ["upstash", "upstash-api", "redis"]
 
 [dependencies]
 async-trait = "0.1.68"
