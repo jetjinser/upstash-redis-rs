@@ -2,6 +2,7 @@ use reqwest::{header, Client, Url};
 
 pub mod commands;
 mod error;
+mod model;
 
 pub use commands::Command;
 pub use error::Result;

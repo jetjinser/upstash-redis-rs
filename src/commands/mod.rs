@@ -1,7 +1,9 @@
 use async_trait::async_trait;
 use reqwest::{Client, Url};
-use serde::{de::DeserializeOwned, Serialize};
+use serde::Serialize;
 use serde_json::{json, Value};
+
+use crate::model::ReResponse;
 
 use super::Result;
 
@@ -20,7 +22,7 @@ pub trait Command {
         self.set_options(key)?.set_options(value)
     }
 
-    async fn send<T: DeserializeOwned>(&self) -> Result<T> {
+    async fn send(&self) -> Result<ReResponse> {
         Ok(self
             .client()
             .post(self.url().as_ref())
