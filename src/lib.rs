@@ -9,6 +9,7 @@ mod model;
 pub use commands::Command;
 pub use error::Result;
 
+#[derive(Clone)]
 pub struct Redis {
     client: Client,
     url: Url,
