@@ -1,3 +1,5 @@
+use std::fmt::Debug;
+
 use async_trait::async_trait;
 use reqwest::{Client, Url};
 use serde::{de::DeserializeOwned, Serialize};
@@ -9,10 +11,17 @@ use super::Result;
 
 pub mod del;
 pub mod get;
+pub mod getdel;
+pub mod set;
+
+pub mod hdel;
 pub mod hget;
 pub mod hgetall;
 pub mod hset;
-pub mod set;
+
+pub mod sadd;
+pub mod smembers;
+pub mod spop;
 
 #[async_trait]
 pub trait Command {

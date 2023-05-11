@@ -8,6 +8,7 @@ mod model;
 
 pub use commands::Command;
 pub use error::Result;
+pub use model::ReResponse;
 
 #[derive(Clone)]
 pub struct Redis {

@@ -1,4 +1,8 @@
+use std::fmt::Debug;
+
 use serde::Deserialize;
+
+// IF Result<T, String> ?
 
 #[derive(Deserialize, Debug)]
 #[serde(untagged)]
