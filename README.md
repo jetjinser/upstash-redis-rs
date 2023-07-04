@@ -216,7 +216,7 @@
         - [ ] xadd
         - [ ] xautoclaim
         - [ ] xclaim
-        - [ ] xdel
+        - [x] xdel
         - [ ] xgroup
         - [ ] xinfo groups
         - [ ] xinfo consumers
