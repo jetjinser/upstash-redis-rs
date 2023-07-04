@@ -9,19 +9,39 @@ use crate::model::ReResponse;
 
 use super::Result;
 
-pub mod del;
-pub mod get;
-pub mod getdel;
-pub mod set;
+mod string;
+mod bitmap;
+mod hash;
+mod list;
+mod set;
+mod sorted_set;
+mod geo;
+mod hyper_log_log;
+mod scripting;
+mod pub_sub;
+mod transactions;
+mod generic;
+mod connection;
+mod server;
+mod json;
+mod streams;
 
-pub mod hdel;
-pub mod hget;
-pub mod hgetall;
-pub mod hset;
-
-pub mod sadd;
-pub mod smembers;
-pub mod spop;
+pub use string::*;
+pub use bitmap::*;
+pub use hash::*;
+pub use list::*;
+pub use set::*;
+pub use sorted_set::*;
+pub use geo::*;
+pub use hyper_log_log::*;
+pub use scripting::*;
+pub use pub_sub::*;
+pub use transactions::*;
+pub use generic::*;
+pub use connection::*;
+pub use server::*;
+pub use json::*;
+pub use streams::*;
 
 #[async_trait]
 pub trait Command {

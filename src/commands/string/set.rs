@@ -2,7 +2,7 @@ use serde::Serialize;
 
 use crate::cmd;
 
-use super::{Command, Result};
+use crate::{Command, Result};
 
 cmd! {SET, Option<String>; key, value}
 
