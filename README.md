@@ -2,7 +2,234 @@
 
 > :construction: WIP
 
-TODO
-[ ] Implement all redis methods
-[ ] Implement Pipeline
-[ ] Implement Transactions
+## TODO
+
+- [ ] Implement all [upstash supported](https://docs.upstash.com/redis/overall/rediscompatibility) redis(v6.2) methods
+    - [String](https://redis.io/commands/?group=string)
+        - [ ] append
+        - [ ] decr
+        - [ ] decrby
+        - [x] get
+        - [x] getdel
+        - [ ] getex
+        - [ ] getrange
+        - [ ] getset
+        - [ ] incr
+        - [ ] incrby
+        - [ ] incrbyfloat
+        - [ ] mget
+        - [ ] mset
+        - [ ] msetnx
+        - [ ] psetex
+        - [x] set
+        - [ ] setex
+        - [ ] setnx
+        - [ ] setrange
+        - [ ] strlen
+    - [Bitmap](https://redis.io/commands/?group=bitmap)
+        - [ ] bitcount
+        - [ ] bitfield
+        - [ ] bitfield_ro
+        - [ ] bitop
+        - [ ] bitpos
+        - [ ] getbit
+        - [ ] setbit
+    - [Hash](https://redis.io/commands/?group=hash)
+        - [x] hdel
+        - [ ] hexists
+        - [x] hget
+        - [x] hgetall
+        - [ ] hincrby
+        - [ ] hincrbyfloat
+        - [ ] hkeys
+        - [ ] hlen
+        - [ ] hmget
+        - [ ] hmset
+        - [ ] hscan
+        - [x] hset
+        - [ ] hsetnx
+        - [ ] hstrlen
+        - [ ] hrandfield
+        - [ ] hvals
+    - [List](https://redis.io/commands/?group=list)
+        - [ ] blmove
+        - [ ] blpop
+        - [ ] brpop
+        - [ ] brpoplpush
+        - [ ] lindex
+        - [ ] linsert
+        - [ ] llen
+        - [ ] lmove
+        - [ ] lpop
+        - [ ] lpos
+        - [ ] lpush
+        - [ ] lpushx
+        - [ ] lrange
+        - [ ] lrem
+        - [ ] lset
+        - [ ] ltrim
+        - [ ] rpop
+        - [ ] rpoplpush
+        - [ ] rpush
+        - [ ] rpushx
+    - [Set](https://redis.io/commands/?group=set)
+        - [x] sadd
+        - [ ] scard
+        - [ ] sdiff
+        - [ ] sdiffstore
+        - [ ] sinter
+        - [ ] sinterstore
+        - [ ] sismenber
+        - [x] smembers
+        - [ ] smismembers
+        - [ ] smove
+        - [x] spop
+        - [ ] srandmember
+        - [ ] srem
+        - [ ] sscan
+        - [ ] sunion
+        - [ ] sunionstore
+    - [SortedSet](https://redis.io/commands/?group=sorted_set)
+        - [ ] bzpopmax
+        - [ ] bzpopmin
+        - [ ] zadd
+        - [ ] zcard
+        - [ ] zcount
+        - [ ] zdiff
+        - [ ] zdiffstore
+        - [ ] zincrby
+        - [ ] zinter
+        - [ ] zinterstore
+        - [ ] zlexcount
+        - [ ] zmscore
+        - [ ] zpopmax
+        - [ ] zpopmin
+        - [ ] zrandmember
+        - [ ] zrange
+        - [ ] zrangestore
+        - [ ] zrangebylex
+        - [ ] zrangebyscore
+        - [ ] zrank
+        - [ ] zrem
+        - [ ] zremrangebylex
+        - [ ] zremrangebyrank
+        - [ ] zremrangebyscore
+        - [ ] zrevrange
+        - [ ] zrevrangebylex
+        - [ ] zrevrangebyscore
+        - [ ] zrevrank
+        - [ ] zscan
+        - [ ] zscore
+        - [ ] zunion
+        - [ ] zunionstore
+    - [Geo](https://redis.io/commands/?group=geo)
+        - [ ] geoadd
+        - [ ] geodist
+        - [ ] geohash
+        - [ ] geopos
+        - [ ] georadius
+        - [ ] georadius_ro
+        - [ ] georadiusbymember
+        - [ ] georadiusbymember_ro
+        - [ ] geosearch
+        - [ ] geosearchstore
+    - [HyperLogLog](https://redis.io/commands/?group=hyperloglog)
+        - [ ] pfadd
+        - [ ] pfcount
+        - [ ] pfmerge
+    - [Scripting](https://redis.io/commands/?group=scripting)
+        - [ ] eval
+        - [ ] evalsha
+        - [ ] script exists
+        - [ ] script load
+        - [ ] script flush
+    - [Pub/Sub](https://redis.io/commands/?group=pubsub)
+        - [ ] subscribe
+        - [ ] psubscribe
+        - [ ] unsubscribe
+        - [ ] punsubscribe
+        - [ ] publish
+        - [ ] pubsub
+    - [Transactions](https://redis.io/commands/?group=transactions)
+        - [ ] discard
+        - [ ] exec
+        - [ ] multi
+        - [ ] unwatch
+        - [ ] watch
+    - [Generic](https://redis.io/commands/?group=generic)
+        - [ ] copy
+        - [x] del
+        - [ ] exists
+        - [ ] expire
+        - [ ] expireat
+        - [ ] keys
+        - [ ] persist
+        - [ ] pexpire
+        - [ ] pexpireat
+        - [ ] pttl
+        - [ ] randomkey
+        - [ ] rename
+        - [ ] renamenx
+        - [ ] scan
+        - [ ] touch
+        - [ ] ttl
+        - [ ] type
+        - [ ] unlink
+    - [Connection](https://redis.io/commands/?group=connection)
+        - [ ] auth
+        - [ ] hello
+        - [ ] echo
+        - [ ] ping
+        - [ ] quit
+        - [ ] reset
+        - [ ] select
+    - [Server](https://redis.io/commands/?group=server)
+        - [ ] acl
+        - [ ] dbsize
+        - [ ] flushall
+        - [ ] flushdb
+        - [ ] time
+    - [JSON](https://redis.io/commands/?group=json)
+        - [ ] json.arrappend
+        - [ ] json.arrinsert
+        - [ ] json.arrindex
+        - [ ] json.arrlen
+        - [ ] json.arrpop
+        - [ ] json.arrtrim
+        - [ ] json.clear
+        - [ ] json.del
+        - [ ] json.forget
+        - [ ] json.get
+        - [ ] json.mget
+        - [ ] json.numincrby
+        - [ ] json.nummultby
+        - [ ] json.objkeys
+        - [ ] json.objlen
+        - [ ] json.resp
+        - [ ] json.set
+        - [ ] json.strappend
+        - [ ] json.strlen
+        - [ ] json.toggle
+        - [ ] json.type
+    - [Streams](https://redis.io/commands/?group=stream)
+        - [ ] xack
+        - [ ] xadd
+        - [ ] xautoclaim
+        - [ ] xclaim
+        - [ ] xdel
+        - [ ] xgroup
+        - [ ] xinfo groups
+        - [ ] xinfo consumers
+        - [ ] xlen
+        - [ ] xpending
+        - [ ] xrange
+        - [ ] xread
+        - [ ] xreadgroup
+        - [ ] xrevrange
+        - [ ] xtrim
+- [ ] Implement [Pipeline](https://docs.upstash.com/redis/features/restapi#pipelining)
+- [ ] Implement [Transactions](https://docs.upstash.com/redis/features/restapi#transactions)
+
+## Contributing
+
+Thanks for your interest in contributing to the project! Please refer to [contribution guidelines](CONTRIBUTING.md) for more information.
